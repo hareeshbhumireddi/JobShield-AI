@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JobShield AI v3.0 — Complete Fraud Detection Platform</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════ NAVBAR -->
+<nav class="navbar-wrap">
+  <div class="navbar-inner">
+    <a href="#" class="nav-brand">
+      <div class="brand-mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M12 1L3 5.5V12C3 17.25 7.02 22.15 12 23.5C16.98 22.15 21 17.25 21 12V5.5L12 1Z" fill="white" opacity="0.15"/>
+          <path d="M12 1L3 5.5V12C3 17.25 7.02 22.15 12 23.5C16.98 22.15 21 17.25 21 12V5.5L12 1Z" stroke="white" stroke-width="1.5" fill="none"/>
+          <path d="M8.5 12L11 14.5L15.5 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span class="brand-wordmark">JobShield<em>AI</em></span>
+    </a>
+    <div class="nav-pills-group">
+      <a href="#detector" class="navpill active">Detector</a>
+      <a href="#how-it-works" class="navpill">How It Works</a>
+      <a href="#features" class="navpill">Features</a>
+    </div>
+    <div class="nav-right">
+      <div class="engine-status">
+        <span class="pulse-ring"></span>
+        <span>System Active</span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════ HERO -->
+<section class="hero-section">
+  <div class="container-xl">
+    <div class="hero-eyebrow">
+      <div class="eyebrow-line"></div>
+      <span>AI-POWERED FRAUD DETECTION v3.0</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <h1 class="hero-headline">
+      Never Fall for a<br>
+      <span class="headline-accent">Fake Job</span> Again.
+    </h1>
+    <p class="hero-subtext">
+      26 advanced features. 50+ fraud patterns. 150+ verified companies. 94.7%+ accuracy.
+    </p>
+    <div class="hero-metrics">
+      <div class="metric-pill">
+        <div class="mpill-icon">⚡</div>
+        <div><div class="mpill-val">Instant</div><div class="mpill-key">Detection</div></div>
+      </div>
+      <div class="metric-pill">
+        <div class="mpill-icon">🎯</div>
+        <div><div class="mpill-val">94.7%</div><div class="mpill-key">Accuracy</div></div>
+      </div>
+      <div class="metric-pill">
+        <div class="mpill-icon">🛡️</div>
+        <div><div class="mpill-val">50+</div><div class="mpill-key">Patterns</div></div>
+      </div>
+      <div class="metric-pill">
+        <div class="mpill-icon">🏢</div>
+        <div><div class="mpill-val">150+</div><div class="mpill-key">Companies</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ DETECTOR -->
+<section class="detector-section" id="detector">
+  <div class="container-xl">
+    <div class="detector-grid">
+      <!-- LEFT PANEL -->
+      <div class="left-panel">
+        <div class="panel-card input-panel-card">
+          <div class="panel-topbar">
+            <div class="topbar-dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <div class="topbar-title">job_analysis.txt</div>
+            <div class="topbar-badge">FEATURE #3: Multi-Input</div>
+          </div>
+          <div class="panel-body">
+            <input type="text" id="jobURL" placeholder="Paste job URL..." class="smart-textarea" style="min-height:auto;margin-bottom:10px;">
+            <button class="chip chip-success" onclick="analyzeURL()">🌐 Analyze URL (Feature #5)</button>
+            <textarea id="jobInput" class="smart-textarea"
+              placeholder="Paste job description...&#10;&#10;Features included: Text Analysis, Sentence Highlighting (Feature #4), Risk Detection, Quality Scoring (Feature #17), Safety Tips (Feature #16)"></textarea>
+            <div class="textarea-meta">
+              <div class="meta-left">
+                <span class="file-icon">📄</span>
+                <span id="wordCount">0 words</span>
+              </div>
+              <span id="charCount" class="char-count-badge">0 / 5000</span>
+            </div>
+          </div>
+          <div class="panel-footer">
+            <div class="examples-section">
+              <span class="examples-title">Load example:</span>
+              <div class="examples-chips">
+                <button class="chip chip-danger" onclick="loadExample('fake1')"><span class="chip-dot"></span> Fake #1</button>
+                <button class="chip chip-danger" onclick="loadExample('fake2')"><span class="chip-dot"></span> Fake #2</button>
+                <button class="chip chip-success" onclick="loadExample('real1')"><span class="chip-dot chip-dot-green"></span> Real #1</button>
+                <button class="chip chip-success" onclick="loadExample('real2')"><span class="chip-dot chip-dot-green"></span> Real #2</button>
+              </div>
+            </div>
+            <div class="pdf-upload">
+              <input type="file" id="pdfFile" accept="application/pdf" hidden>
+              <button class="chip chip-success" onclick="document.getElementById('pdfFile').click()">📄 Upload PDF (Feature #3)</button>
+            </div>
+            <div class="action-buttons">
+              <button class="btn-analyze" id="analyzeBtn" onclick="analyzeJob()">
+                <span id="btnText">🔍 Run Complete Analysis</span>
+                <div id="btnLoader" class="spinner d-none"></div>
+              </button>
+              <button class="btn-clear" onclick="clearInput()">🗑️</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- DETECTION CATEGORIES CARD -->
+        <div class="panel-card categories-card">
+          <div class="cat-header">
+            <span class="cat-title">Detection Categories (Feature #15)</span>
+            <span class="cat-badge">6 Active</span>
+          </div>
+          <div class="cat-list">
+            <div class="cat-item">
+              <div class="cat-bar" style="--pct:40%"></div>
+              <span class="cat-name">Payment Requests</span>
+              <span class="cat-weight">40pts</span>
+            </div>
+            <div class="cat-item">
+              <div class="cat-bar" style="--pct:35%"></div>
+              <span class="cat-name">Info Harvesting</span>
+              <span class="cat-weight">35pts</span>
+            </div>
+            <div class="cat-item">
+              <div class="cat-bar" style="--pct:25%"></div>
+              <span class="cat-name">Unrealistic Salary</span>
+              <span class="cat-weight">25pts</span>
+            </div>
+            <div class="cat-item">
+              <div class="cat-bar" style="--pct:25%"></div>
+              <span class="cat-name">Suspicious Contact</span>
+              <span class="cat-weight">25pts</span>
+            </div>
+            <div class="cat-item">
+              <div class="cat-bar" style="--pct:20%"></div>
+              <span class="cat-name">Urgency Language</span>
+              <span class="cat-weight">20pts</span>
+            </div>
+            <div class="cat-item">
+              <div class="cat-bar" style="--pct:15%"></div>
+              <span class="cat-name">Missing Details</span>
+              <span class="cat-weight">15pts</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SCAN HISTORY (Feature #25) -->
+        <div class="panel-card history-card">
+          <div class="cat-header">
+            <span class="cat-title">Scan History (Feature #25)</span>
+            <span class="cat-badge">Last 5</span>
+          </div>
+          <div id="scanHistory" class="history-list">
+            <p style="color:#94a3b8;font-size:0.8rem">No scans yet</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL -->
+      <div class="right-panel">
+        <!-- IDLE STATE -->
+        <div id="idleState" class="panel-card result-card idle-card">
+          <div class="idle-visual">
+            <div class="orbit-system">
+              <div class="orbit-core">🛡️</div>
+              <div class="orbit orbit-1"><div class="orbit-dot"></div></div>
+              <div class="orbit orbit-2"><div class="orbit-dot dot-2"></div></div>
+              <div class="orbit orbit-3"><div class="orbit-dot dot-3"></div></div>
+            </div>
+          </div>
+          <h3 class="idle-heading">Awaiting Input</h3>
+          <h3 class="idle-heading" id="initialSignal">Real Probability: —%</h3>
+          <p class="idle-para">Upload or paste a job to see detailed analysis</p>
+          <div class="capability-grid">
+            <div class="cap-item"><span>🔍</span><span>Pattern Match</span></div>
+            <div class="cap-item"><span>💬</span><span>Language Analysis</span></div>
+            <div class="cap-item"><span>🏢</span><span>Company Verify</span></div>
+            <div class="cap-item"><span>💰</span><span>Salary Check</span></div>
+            <div class="cap-item"><span>📧</span><span>Contact Scan</span></div>
+            <div class="cap-item"><span>⚠️</span><span>Risk Score</span></div>
+          </div>
+        </div>
+
+        <!-- LOADING STATE -->
+        <div id="loadingState" class="panel-card result-card idle-card d-none">
+          <div class="loading-visual">
+            <div class="hex-grid">
+              <div class="hex h1"></div>
+              <div class="hex h2"></div>
+              <div class="hex h3"></div>
+              <div class="hex h4"></div>
+              <div class="hex h5"></div>
+            </div>
+          </div>
+          <h3 class="idle-heading">Analyzing...</h3>
+          <div class="progress-steps">
+            <div class="prog-step active" id="step1">
+              <div class="prog-step-dot"></div>
+              <div class="prog-step-text">
+                <span class="pst-label">STEP 1: Text Analysis & Parsing</span>
+                <div class="pst-bar"><div class="pst-fill"></div></div>
+              </div>
+            </div>
+            <div class="prog-step" id="step2">
+              <div class="prog-step-dot"></div>
+              <div class="prog-step-text">
+                <span class="pst-label">STEP 2: Fraud Pattern Detection</span>
+                <div class="pst-bar"><div class="pst-fill"></div></div>
+              </div>
+            </div>
+            <div class="prog-step" id="step3">
+              <div class="prog-step-dot"></div>
+              <div class="prog-step-text">
+                <span class="pst-label">STEP 3: ML Model Prediction</span>
+                <div class="pst-bar"><div class="pst-fill"></div></div>
+              </div>
+            </div>
+            <div class="prog-step" id="step4">
+              <div class="prog-step-dot"></div>
+              <div class="prog-step-text">
+                <span class="pst-label">STEP 4: Risk Analysis & Scoring</span>
+                <div class="pst-bar"><div class="pst-fill"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RESULTS STACK -->
+        <div id="resultsState" class="d-none result-panels-stack">
+          <button class="btn-analyze mb-3" onclick="downloadReport()">⬇ Download Report (Feature #19)</button>
+
+          <!-- HIGHLIGHTED TEXT PREVIEW (Feature #23) -->
+          <div id="highlightedTextPanel" class="mini-card mb-3" style="background:#f8fafc;border:1px solid #e5e7eb;">
+            <div class="mini-title">FEATURE #4 & #23: Sentence Highlighting & Preview</div>
+            <div id="highlightedText" style="font-size:0.85rem;line-height:2;color:#334155"></div>
+          </div>
+
+          <!-- COMPANY INFO (Features #7, #8, #9) -->
+          <div class="mini-card mb-3" style="background:#f8fafc;border:1px solid #e5e7eb;">
+            <div class="mini-title">FEATURE #7-9: Company Analysis & Trust Badge</div>
+            <div id="companyName" style="font-weight:600;font-size:16px">—</div>
+            <div id="companyTrustBadge" style="margin-top:6px;font-weight:600"></div>
+            <div id="expText" style="color:#6b7280;margin-top:4px"></div>
+            <div id="companyLinks" style="margin-top:6px"></div>
+          </div>
+
+          <!-- VERDICT CARD (Features #1, #2, #10, #11) -->
+          <div class="verdict-card mb-3">
+            <div class="verdict-content">
+              <div>
+                <div class="verdict-sublabel">FEATURE #1-2: ANALYSIS RESULT</div>
+                <div class="verdict-headline" id="verdictHeadline">—</div>
+                <div class="verdict-sub" id="verdictSub">—</div>
+              </div>
+              <div style="text-align:right">
+                <div class="big-score" id="bigScore">—</div>
+                <div class="big-score-label">Real Probability</div>
+                <div class="risk-tag" id="riskTag">—</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FRAUD GAUGE METER (Feature #10) -->
+          <div class="score-row mb-3">
+            <div class="mini-card">
+              <div class="mini-title">FEATURE #10: Risk Meter Gauge</div>
+              <div style="position:relative;width:150px;height:75px;margin:10px auto">
+                <canvas id="gaugeCanvas" width="150" height="75"></canvas>
+              </div>
+            </div>
+
+            <!-- CONFIDENCE BAR (Feature #11) -->
+            <div class="mini-card">
+              <div class="mini-title">FEATURE #11: Confidence Score</div>
+              <div id="confBigNum" style="font-size:28px;font-weight:600">0%</div>
+              <div class="conf-track">
+                <div id="confFill" class="conf-fill"></div>
+              </div>
+              <div id="confVerdictText">—</div>
+            </div>
+          </div>
+
+          <!-- CONFIDENCE BREAKDOWN (Feature #12) -->
+          <div class="mini-card mb-3" style="background:#fff7ed;border:1px solid #fed7aa;">
+            <div class="mini-title">FEATURE #12: Confidence Breakdown (PRO)</div>
+            <div id="confidenceBreakdown" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:0.75rem">
+              <div><strong>Rule-Based:</strong> <span id="ruleScore">0</span>%</div>
+              <div><strong>ML Model:</strong> <span id="mlScore">0</span>%</div>
+              <div><strong>Hybrid:</strong> <span id="hybridScore">0</span>%</div>
+              <div><strong>Confidence:</strong> <span id="confScore">0</span>%</div>
+            </div>
+          </div>
+
+          <!-- QUALITY SCORE (Feature #17) -->
+          <div class="mini-card mb-3" style="background:#ecfdf5;border:1px solid #a7f3d0;">
+            <div class="mini-title">FEATURE #17: Job Quality Score (PRO)</div>
+            <div id="qualityScore" style="font-size:2rem;font-weight:700;color:#059669">75%</div>
+            <div style="font-size:0.75rem;color:#6b7280;margin-top:5px">Structure • Professional • Detail level</div>
+          </div>
+
+          <!-- EXPANDED EXPLANATION (Feature #18) -->
+          <div class="mini-card mb-3" style="background:#fef3c7;border:1px solid #fde68a;">
+            <div class="mini-title">FEATURE #18: Expanded AI Explanation (PRO)</div>
+            <p id="explText" style="margin:0;font-size:0.88rem;line-height:1.8">—</p>
+          </div>
+
+          <!-- SAFETY TIPS (Feature #16) -->
+          <div id="safetyTipsPanel" class="mini-card mb-3" style="background:#fee2e2;border:1px solid #fecaca;display:none">
+            <div class="mini-title">FEATURE #16: Safety Tips Engine 🚨</div>
+            <div id="safetyTips"></div>
+          </div>
+
+          <!-- FLAGS GRID (Features #13, #14) -->
+          <div class="flags-grid mb-3">
+            <div style="background:#fef2f2;border:1px solid #fecaca;padding:16px;border-radius:12px;">
+              <h5 style="color:#b91c1c">FEATURE #13: Red Flags (<span id="redCount">0</span>)</h5>
+              <ul id="redFlagsList"></ul>
+            </div>
+            <div style="background:#ecfdf5;border:1px solid #bbf7d0;padding:16px;border-radius:12px;">
+              <h5 style="color:#065f46">FEATURE #14: Positive Signals (<span id="greenCount">0</span>)</h5>
+              <ul id="greenList"></ul>
+            </div>
+          </div>
+
+          <!-- RISK BREAKDOWN CHART (Feature #15) -->
+          <div class="mini-card mb-3" style="background:#f0f4f8;border:1px solid #cbd5e1;">
+            <div class="mini-title">FEATURE #15: Fraud Risk Breakdown (PRO)</div>
+            <div id="riskBreakdownChart" style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;font-size:0.75rem">
+              <!-- Filled by JS -->
+            </div>
+          </div>
+
+          <!-- CHAT ASSISTANT (Feature #26) -->
+          <div class="mini-card mb-3" style="background:#e0e7ff;border:1px solid #a5b4fc;">
+            <div class="mini-title">FEATURE #26: Chat Assistant (Optional)</div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <button class="chip chip-success" onclick="askAssistant('why')">❓ Why risky?</button>
+              <button class="chip chip-success" onclick="askAssistant('verify')">✓ How to verify?</button>
+              <button class="chip chip-success" onclick="askAssistant('safety')">🛡️ Safety tips?</button>
+            </div>
+            <div id="assistantResponse" style="margin-top:10px;font-size:0.85rem;color:#1f2937;display:none"></div>
+          </div>
+        </div>
+
+        <!-- ERROR STATE -->
+        <div id="errorState" class="panel-card result-card idle-card d-none">
+          <div style="font-size:3rem;margin-bottom:16px">🔴</div>
+          <h3 class="idle-heading">Analysis Failed</h3>
+          <p class="idle-para" id="errorMsg">An error occurred.</p>
+          <button class="btn-analyze mt-3" style="width:auto;padding:12px 28px" onclick="location.reload()">Retry</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ FEATURES SECTION -->
+<section class="features-section" id="features">
+  <div class="container-xl">
+    <h2 class="section-heading">26 Advanced Features</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🧠</div>
+        <div class="feature-name">Core AI Engine</div>
+        <div class="feature-desc">Hybrid ML + Rules (50+ patterns, 94.7% accuracy)</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📝</div>
+        <div class="feature-name">Multi-Input Support</div>
+        <div class="feature-desc">Text • PDF • URL analysis in one platform</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <div class="feature-name">Sentence Highlighting</div>
+        <div class="feature-desc">Red/Green highlighting with risk scoring</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <div class="feature-name">URL Intelligence</div>
+        <div class="feature-desc">HTTPS check • Domain parsing • Trust scoring</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏢</div>
+        <div class="feature-name">Company Analysis</div>
+        <div class="feature-desc">150+ verified companies + domain detection</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <div class="feature-name">Risk Visualization</div>
+        <div class="feature-desc">Gauge meter • Confidence bars • Breakdowns</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚠️</div>
+        <div class="feature-name">Safety Intelligence</div>
+        <div class="feature-desc">Smart safety tips based on fraud patterns</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📈</div>
+        <div class="feature-name">Quality Analysis</div>
+        <div class="feature-desc">Structure • Tone • Detail level scoring</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <div class="feature-name">Smart Explanation</div>
+        <div class="feature-desc">AI-generated explanations why real/fake</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📁</div>
+        <div class="feature-name">PDF Reports</div>
+        <div class="feature-desc">Download detailed analysis reports</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⏱️</div>
+        <div class="feature-name">Loading Animation</div>
+        <div class="feature-desc">4-step progress visualization</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💾</div>
+        <div class="feature-name">Scan History</div>
+        <div class="feature-desc">Track last 5 analyses</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ FOOTER -->
+<footer class="main-footer">
+  <div class="container-xl">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <span class="footer-wordmark">JobShield<em>AI</em></span>
+        <p class="footer-tagline">26 Features • 50+ Patterns • 150+ Companies • 94.7% Accuracy</p>
+      </div>
+      <div class="footer-info">
+        <div class="footer-label">TECHNOLOGY</div>
+        <p>Flask • scikit-learn • Hybrid ML • Rule-based Analysis</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 JobShield AI v3.0 — Complete Edition</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='js/app_v2.js') }}"></script>
+</body>
+</html>
